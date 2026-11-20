@@ -16,6 +16,10 @@
     "commander": "^15.1.0"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^5.1.1",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.32.0",
     "execa": "^10.2.1",
     "vitest": "^5.1.1"
   }

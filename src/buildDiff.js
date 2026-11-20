@@ -23,7 +23,9 @@ const buildDiff = (data1, data2) => {
     if (value1 === value2) {
       return { key, type: 'unchanged', value: value1 };
     }
-    return { key, type: 'changed', value: value2, oldValue: value1 };
+    return {
+      key, type: 'changed', value: value2, oldValue: value1,
+    };
   });
 };
 
