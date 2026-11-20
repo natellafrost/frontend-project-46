@@ -22,7 +22,24 @@ cd frontend-project-46
 
 ## Использование
 
-<!-- Добавьте примеры запуска и запись asciinema — именно это смотрит работодатель -->
+```bash
+gendiff filepath1.json filepath2.json
+```
+
+Пример вывода:
+
+```
+{
+  - follow: false
+    host: hexlet.io
+  - proxy: 123.234.53.22
+  - timeout: 50
+  + timeout: 20
+  + verbose: true
+}
+```
+
+[![asciicast](https://asciinema.org/a/DT9qr14Poe9y4xeW.svg)](https://asciinema.org/a/DT9qr14Poe9y4xeW)
 
 ---
 
