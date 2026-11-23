@@ -146,3 +146,97 @@ describe('gendiff CLI (plain)', () => {
     expect(stdout).toBe(expectedPlainNested);
   });
 });
+
+describe('json formatter', () => {
+  test('renders nested diff as valid JSON', () => {
+    const result = genDiff(filepath3, filepath4, 'json');
+    const parsed = JSON.parse(result);
+
+    expect(parsed).toEqual([
+      {
+        key: 'common',
+        type: 'nested',
+        children: [
+          { key: 'follow', type: 'added', value: false },
+          { key: 'setting1', type: 'unchanged', value: 'Value 1' },
+          { key: 'setting2', type: 'removed', value: 200 },
+          { key: 'setting3', type: 'changed', value: null, oldValue: true },
+          { key: 'setting4', type: 'added', value: 'blah blah' },
+          {
+            key: 'setting5',
+            type: 'added',
+            value: { key5: 'value5' },
+          },
+          {
+            key: 'setting6',
+            type: 'nested',
+            children: [
+              {
+                key: 'doge',
+                type: 'nested',
+                children: [
+                  { key: 'wow', type: 'changed', value: 'so much', oldValue: '' },
+                ],
+              },
+              { key: 'key', type: 'unchanged', value: 'value' },
+              { key: 'ops', type: 'added', value: 'vops' },
+            ],
+          },
+        ],
+      },
+      {
+        key: 'group1',
+        type: 'nested',
+        children: [
+          { key: 'baz', type: 'changed', value: 'bars', oldValue: 'bas' },
+          { key: 'foo', type: 'unchanged', value: 'bar' },
+          {
+            key: 'nest',
+            type: 'changed',
+            value: 'str',
+            oldValue: { key: 'value' },
+          },
+        ],
+      },
+      {
+        key: 'group2',
+        type: 'removed',
+        value: { abc: 12345, deep: { id: 45 } },
+      },
+      {
+        key: 'group3',
+        type: 'added',
+        value: { deep: { id: { number: 45 } }, fee: 100500 },
+      },
+    ]);
+  });
+
+  test('renders flat diff as valid JSON', () => {
+    const result = genDiff(filepath1, filepath2, 'json');
+    const parsed = JSON.parse(result);
+
+    expect(parsed).toEqual([
+      { key: 'follow', type: 'removed', value: false },
+      { key: 'host', type: 'unchanged', value: 'hexlet.io' },
+      { key: 'proxy', type: 'removed', value: '123.234.53.22' },
+      { key: 'timeout', type: 'changed', value: 20, oldValue: 50 },
+      { key: 'verbose', type: 'added', value: true },
+    ]);
+  });
+
+  test('output is parseable and pretty-printed', () => {
+    const result = genDiff(filepath1, filepath2, 'json');
+    expect(() => JSON.parse(result)).not.toThrow();
+    expect(result).toContain('\n');
+    expect(result).toContain('  ');
+  });
+});
+
+describe('gendiff CLI (json)', () => {
+  test('outputs valid JSON via --format json', async () => {
+    const { stdout } = await execa('node', [
+      'bin/gendiff.js', '--format', 'json', filepath1, filepath2,
+    ]);
+    expect(() => JSON.parse(stdout)).not.toThrow();
+  });
+});
