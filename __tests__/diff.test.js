@@ -30,3 +30,14 @@ describe('gendiff CLI (diff)', () => {
     expect(stdout).toBe(expected);
   });
 });
+
+const ymlPath1 = path.join(fixturesDir, 'file1.yml');
+const ymlPath2 = path.join(fixturesDir, 'file2.yml');
+
+test('compares flat YAML files', () => {
+  expect(genDiff(ymlPath1, ymlPath2)).toBe(expected);
+});
+
+test('compares JSON and YAML mixed', () => {
+  expect(genDiff(filepath1, ymlPath2)).toBe(expected);
+});

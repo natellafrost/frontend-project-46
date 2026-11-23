@@ -1,8 +1,11 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
+import { load } from 'js-yaml';
 
 const parsers = {
   '.json': JSON.parse,
+  '.yaml': load,
+  '.yml': load,
 };
 
 const parse = (filepath) => {

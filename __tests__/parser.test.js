@@ -30,3 +30,25 @@ describe('parse', () => {
     expect(() => parse('__fixtures__/file1.txt')).toThrow();
   });
 });
+
+describe('parse YAML', () => {
+  test('parses YAML file by .yml extension', () => {
+    const ymlPath = path.join(fixturesDir, 'file1.yml');
+    expect(parse(ymlPath)).toEqual({
+      host: 'hexlet.io',
+      timeout: 50,
+      proxy: '123.234.53.22',
+      follow: false,
+    });
+  });
+
+  test('parses YAML file by .yaml extension', () => {
+    const yamlPath = path.join(fixturesDir, 'file1.yaml');
+    expect(parse(yamlPath)).toEqual({
+      host: 'hexlet.io',
+      timeout: 50,
+      proxy: '123.234.53.22',
+      follow: false,
+    });
+  });
+});
