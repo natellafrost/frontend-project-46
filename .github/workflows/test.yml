@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Или ваша текущая версия Node.js
+          node-version: '24' # Или ваша текущая версия Node.js
 
       - name: Install dependencies
         run: make install
