@@ -102,3 +102,47 @@ describe('gendiff CLI (diff)', () => {
     expect(stdout).toBe(expectedFlat);
   });
 });
+
+const expectedPlainNested = [
+  "Property 'common.follow' was added with value: false",
+  "Property 'common.setting2' was removed",
+  "Property 'common.setting3' was updated. From true to null",
+  "Property 'common.setting4' was added with value: 'blah blah'",
+  "Property 'common.setting5' was added with value: [complex value]",
+  "Property 'common.setting6.doge.wow' was updated. From '' to 'so much'",
+  "Property 'common.setting6.ops' was added with value: 'vops'",
+  "Property 'group1.baz' was updated. From 'bas' to 'bars'",
+  "Property 'group1.nest' was updated. From [complex value] to 'str'",
+  "Property 'group2' was removed",
+  "Property 'group3' was added with value: [complex value]",
+].join('\n');
+
+const expectedPlainFlat = [
+  "Property 'follow' was removed",
+  "Property 'proxy' was removed",
+  "Property 'timeout' was updated. From 50 to 20",
+  "Property 'verbose' was added with value: true",
+].join('\n');
+
+describe('plain formatter', () => {
+  test('renders nested diff as plain text', () => {
+    expect(genDiff(filepath3, filepath4, 'plain')).toBe(expectedPlainNested);
+  });
+
+  test('renders flat diff as plain text', () => {
+    expect(genDiff(filepath1, filepath2, 'plain')).toBe(expectedPlainFlat);
+  });
+
+  test('renders nested YAML diff as plain text', () => {
+    expect(genDiff(ymlNested1, ymlNested2, 'plain')).toBe(expectedPlainNested);
+  });
+});
+
+describe('gendiff CLI (plain)', () => {
+  test('outputs plain diff', async () => {
+    const { stdout } = await execa('node', [
+      'bin/gendiff.js', '-f', 'plain', filepath3, filepath4,
+    ]);
+    expect(stdout).toBe(expectedPlainNested);
+  });
+});

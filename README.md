@@ -41,7 +41,7 @@ gendiff filepath1.json filepath2.json
 }
 ```
 
-[![asciicast](https://asciinema.org/a/TMnOAHRSeUMmZnPO.svg)](https://asciinema.org/a/TMnOAHRSeUMmZnPO)
+[![asciicast](https://asciinema.org/a/4sY41kQYBrGIymrZ.svg)](https://asciinema.org/a/4sY41kQYBrGIymrZ)
 
 ---
 
