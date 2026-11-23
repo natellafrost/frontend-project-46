@@ -15,26 +15,29 @@ const stringify = (value, depth) => {
 };
 
 const renderNode = (node, depth) => {
-  const indent = INDENT.repeat(depth);
   const { key, type } = node;
+  const baseIndent = INDENT.repeat(depth);
+  const signIndent = INDENT.repeat(depth).slice(2);
 
   switch (type) {
     case 'nested':
-      return `${indent}${key}: {\n${node.children.map((child) => renderNode(child, depth + 1)).join('\n')}\n${indent}}`;
+      return `${baseIndent}${key}: {\n${node.children
+        .map((child) => renderNode(child, depth + 1))
+        .join('\n')}\n${baseIndent}}`;
     case 'added':
-      return `${indent}  + ${key}: ${stringify(node.value, depth + 1)}`;
+      return `${signIndent}+ ${key}: ${stringify(node.value, depth)}`;
     case 'removed':
-      return `${indent}  - ${key}: ${stringify(node.value, depth + 1)}`;
+      return `${signIndent}- ${key}: ${stringify(node.value, depth)}`;
     case 'changed':
-      return `${indent}  - ${key}: ${stringify(node.oldValue, depth + 1)}\n${indent}  + ${key}: ${stringify(node.value, depth + 1)}`;
+      return `${signIndent}- ${key}: ${stringify(node.oldValue, depth)}\n${signIndent}+ ${key}: ${stringify(node.value, depth)}`;
     case 'unchanged':
     default:
-      return `${indent}    ${key}: ${stringify(node.value, depth + 1)}`;
+      return `${baseIndent}${key}: ${stringify(node.value, depth)}`;
   }
 };
 
 const stylish = (diffTree) => {
-  const lines = diffTree.map((node) => renderNode(node, 0));
+  const lines = diffTree.map((node) => renderNode(node, 1));
   return `{\n${lines.join('\n')}\n}`;
 };
 
