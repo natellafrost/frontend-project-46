@@ -160,7 +160,9 @@ describe('json formatter', () => {
           { key: 'follow', type: 'added', value: false },
           { key: 'setting1', type: 'unchanged', value: 'Value 1' },
           { key: 'setting2', type: 'removed', value: 200 },
-          { key: 'setting3', type: 'changed', value: null, oldValue: true },
+          {
+            key: 'setting3', type: 'changed', value: null, oldValue: true,
+          },
           { key: 'setting4', type: 'added', value: 'blah blah' },
           {
             key: 'setting5',
@@ -175,7 +177,9 @@ describe('json formatter', () => {
                 key: 'doge',
                 type: 'nested',
                 children: [
-                  { key: 'wow', type: 'changed', value: 'so much', oldValue: '' },
+                  {
+                    key: 'wow', type: 'changed', value: 'so much', oldValue: '',
+                  },
                 ],
               },
               { key: 'key', type: 'unchanged', value: 'value' },
@@ -188,7 +192,9 @@ describe('json formatter', () => {
         key: 'group1',
         type: 'nested',
         children: [
-          { key: 'baz', type: 'changed', value: 'bars', oldValue: 'bas' },
+          {
+            key: 'baz', type: 'changed', value: 'bars', oldValue: 'bas',
+          },
           { key: 'foo', type: 'unchanged', value: 'bar' },
           {
             key: 'nest',
@@ -219,7 +225,9 @@ describe('json formatter', () => {
       { key: 'follow', type: 'removed', value: false },
       { key: 'host', type: 'unchanged', value: 'hexlet.io' },
       { key: 'proxy', type: 'removed', value: '123.234.53.22' },
-      { key: 'timeout', type: 'changed', value: 20, oldValue: 50 },
+      {
+        key: 'timeout', type: 'changed', value: 20, oldValue: 50,
+      },
       { key: 'verbose', type: 'added', value: true },
     ]);
   });
